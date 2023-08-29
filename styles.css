@@ -1,0 +1,208 @@
+body {
+  background-color: white;
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+}
+
+.navbar {
+  background-color: black;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+}
+
+.logo img {
+  max-width: 100px; /* Adjust as needed */
+}
+
+.nav-links a i {
+  font-size: 24px;
+  color: white; /* Icon color */
+  margin: 0 10px;
+}
+
+/* Additional styling for map and charts goes here */
+
+.horizontal-panel {
+  display: flex;
+  align-items: center;
+  background-color: #f0f0f0;
+  padding: 10px;
+  margin-bottom: 20px;
+}
+
+.date-container {
+  display: flex;
+  align-items: center;
+  margin-right: 200px; /* Add space between date container and dropdowns */
+}
+
+.date-container label {
+  margin-right: 10px; /* Add space between label and input */
+}
+
+.date-container input {
+  padding: 5px;
+  margin-right: 40px;
+}
+
+.dropdowns {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* Spread out dropdowns */
+  flex-grow: 1; /* Occupy available space */
+  margin-right: 200px;
+}
+
+.go-button {
+  padding: 10px 20px;
+  background-color: blue;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.go-button:hover {
+  background-color: darkblue;
+}
+
+#container {
+  height: 500px;
+  min-width: 200px;
+  max-width: 450px;
+  margin: 10;
+}
+
+.loading {
+  margin-top: 10em;
+  text-align: center;
+  color: gray;
+}
+
+/* ... (additional styling for map and charts) ... */
+
+.chart-container {
+  display: flex; /* Create a row layout */
+  margin-bottom: 100px;
+}
+
+.highcharts-figure,
+.highcharts-data-table table {
+  min-width: 310px;
+  max-width: 800px;
+  margin: 1em auto;
+}
+
+.map {
+  flex: 1; /* Make the map take up available space */
+  max-width: 60%; /* Adjust the width as needed */
+}
+
+#container {
+  height: 400px;
+}
+
+
+.bar-chart-horizontal {
+  flex: 1; /* Make the column chart take up available space */
+  max-width: 40%; /* Adjust the width as needed */
+  border-left: 1px solid #ccc; /* Add a border between charts */
+  padding-left: 10px; /* Add padding to separate the charts */
+}
+
+.highcharts-data-table table {
+  font-family: Verdana, sans-serif;
+  border-collapse: collapse;
+  border: 1px solid #ebebeb;
+  margin: 10px auto;
+  text-align: center;
+  width: 100%;
+  max-width: 500px;
+}
+
+.highcharts-data-table caption {
+  padding: 1em 0;
+  font-size: 1.2em;
+  color: #555;
+}
+
+.highcharts-data-table th {
+  font-weight: 600;
+  padding: 0.5em;
+}
+
+.highcharts-data-table td,
+.highcharts-data-table th,
+.highcharts-data-table caption {
+  padding: 0.5em;
+}
+
+.highcharts-data-tablzzzzzze thead tr,
+.highcharts-data-table tr:nth-child(even) {
+  background: #f8f8f8;
+}
+
+.highcharts-data-table tr:hover {
+  background: #f1f7ff;
+}
+
+input[type="number"] {
+  min-width: 50px;
+}
+
+\*olumn chart*/
+
+
+
+.content {
+  display: flex; /* Use flexbox to create a row layout */
+  justify-content: space-between; /* Space between columns */
+  align-items: flex-start; /* Align content at the top of each column */
+  padding: 20px;
+  flex-grow: 1;
+}
+
+.charts {
+  flex: 1; /* Let each column take equal space */
+  padding: 10px; /* Add some padding */
+  border: 1px solid #ccc; /* Add a border for clarity */
+}
+
+#column-chart {
+  height: 400px;
+  width: 30%; /* Adjust the width as needed */
+  margin-left:40px;
+}
+
+#bar-chart {
+  height: 400px;
+  width: 30%; /* Adjust the width as needed */
+  margin-left:40px;
+}
+
+
+.chart-container2 {
+  display: flex; /* Create a row layout */
+
+}
+
+#pie-chart {
+  height: 400px;
+  width: 30%; /* Adjust the width as needed */
+  margin-left:20px;
+}
+  
+#hist {
+height: 400px;
+width:30%; /* Adjust the width as needed */
+margin-left:40px;
+}
+  
+#tree {
+height: 400px;
+width: 30%; /* Adjust the width as needed */
+margin-left:40px;
+}
