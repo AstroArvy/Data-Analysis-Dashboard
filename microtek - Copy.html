@@ -39,42 +39,11 @@
 	</div>
 	
 	<div class="dropdowns">
-	  <select name="states" id="states">
-  <option value="all-state" selected>State</option>
-  <option value="in-py">Puducherry</option>
-  <option value="in-ld">Lakshadweep</option>
-  <option value="in-wb">West Bengal</option>
-  <option value="in-or">Orissa</option>
-  <option value="in-br">Bihar</option>
-  <option value="in-sk">Sikkim</option>
-  <option value="in-ct">Chattisgarh</option>
-  <option value="in-tn">Tamil Nadu</option>
-  <option value="in-mp">Madhya Pradesh</option>
-  <option value="in-2984">Gujarat</option>
-  <option value="in-ga">Goa</option>
-  <option value="in-nl">Nagaland</option>
-  <option value="in-mn">Manipur</option>
-  <option value="in-ar">Arunachal Pradesh</option>
-  <option value="in-mz">Mizoram</option>
-  <option value="in-tr">Tripura</option>
-  <option value="in-3464">Andaman and Nicobar</option>
-  <option value="in-dl">Delhi</option>
-  <option value="in-dn">Daman and Diu</option>
-  <option value="in-ch">Chandigarh</option>
-  <option value="in-hp">Himachal Pradesh</option>
-  <option value="in-jk">Jammu and Kashmir</option>
-  <option value="in-kl">Kerala</option>
-  <option value="in-ka">Karnataka</option>
-  <option value="in-mh">Maharashtra</option>
-  <option value="in-as">Assam</option>
-  <option value="in-ap">Andhra Pradesh</option>
-  <option value="in-ml">Meghakaya</option>
-  <option value="in-pb">Punjab</option>
-  <option value="in-rj">Rajasthan</option>
-  <option value="in-up">Uttar Pradesh</option>
-  <option value="in-ut">Uttarakhand</option>
-  <option value="in-jh">Jharkhand</option>
-  <option value="in-hr">Jharkhand</option>
+	  <select name="language" id="language">
+  <option value="javascript">JavaScript</option>
+  <option value="python">Python</option>
+  <option value="c++" disabled>C++</option>
+  <option value="java" selected>State</option>
 </select>
 
 <select name="language" id="language">
@@ -131,13 +100,14 @@
 
 <script>
 (async () => {
+
     const topology = await fetch(
         'https://code.highcharts.com/mapdata/countries/in/in-all.topo.json'
     ).then(response => response.json());
 
-    const mapContainer = document.getElementById('map-container');
-    const statesDropdown = document.getElementById('states');
-    
+    // Prepare demo data. The data is joined to map using value of 'hc-key'
+    // property by default. See API docs for 'joinBy' for more info on linking
+    // data and map.
     const data = [
         ['in-py', 10], ['in-ld', 11], ['in-wb', 12], ['in-or', 13],
         ['in-br', 14], ['in-sk', 15], ['in-ct', 16], ['in-tn', 17],
@@ -149,96 +119,6 @@
         ['in-ml', 38], ['in-pb', 39], ['in-rj', 40], ['in-up', 41],
         ['in-ut', 42], ['in-jh', 43]
     ];
-	
-	// Create the initial map
-    const map = Highcharts.mapChart('container', {
-        chart: {
-            map: topology
-        },
-        title: {
-            text: 'StateWise Service Request',
-            align: 'left',
-            style: {
-                fontSize: 13
-            }
-        },
-        // Other map configuration options
-		
-        colorAxis: {
-            min: 0
-        },
-        series: [{
-            data: data,
-            name: 'Random data',
-            states: {
-                hover: {
-                    color: '#BADA55'
-                }
-            },
-        mapNavigation: {
-            enabled: true,
-            buttonOptions: {
-                verticalAlign: 'bottom'
-            }
-        },
-        dataLabels: {
-            enabled: false,
-                format: '{point.name}'
-            }
-        }]
-    });
-
-	statesDropdown.addEventListener('change', (event) => {
-		const selectedState = event.target.value;
-		console.log(statesDropdown.value);
-		if (statesDropdown.value === 'all-state') {
-			// Show all data on the map
-			updateMapForAllData();
-		} else {
-			// Show data for the selected state
-			const selectedData = data.find(item => item[0] === selectedState)[1];
-			updateMap(selectedState, selectedData);
-		}
-	});
-
-    // Function to update the map with selected data
-    function updateMap(selectedState, selectedData) {
-        map.update({
-            series: [{
-                data: [
-                    [selectedState, selectedData]
-                ]
-            }]
-        });
-    }
-	
-	function updateMapForAllData() {
-		map.update({
-            series: [{
-                data: [
-        ['in-py', 10], ['in-ld', 11], ['in-wb', 12], ['in-or', 13],
-        ['in-br', 14], ['in-sk', 15], ['in-ct', 16], ['in-tn', 17],
-        ['in-mp', 18], ['in-2984', 19], ['in-ga', 20], ['in-nl', 21],
-        ['in-mn', 22], ['in-ar', 23], ['in-mz', 24], ['in-tr', 25],
-        ['in-3464', 26], ['in-dl', 27], ['in-hr', 28], ['in-ch', 29],
-        ['in-hp', 30], ['in-jk', 31], ['in-kl', 32], ['in-ka', 33],
-        ['in-dn', 34], ['in-mh', 35], ['in-as', 36], ['in-ap', 37],
-        ['in-ml', 38], ['in-pb', 39], ['in-rj', 40], ['in-up', 41],
-        ['in-ut', 42], ['in-jh', 43]
-    ]
-            }]
-        });
-    }
-    
-}
-	
-)();
-
-    
-
-</script>
-
-
 
     // Create the chart
     Highcharts.mapChart('container', {
@@ -379,7 +259,7 @@ Highcharts.chart('bar-chart', {
     align: 'right',
     verticalAlign: 'top',
     x: -20,
-    y: 280,
+    y: 250,
     floating: true,
     borderWidth: 1,
     backgroundColor:
