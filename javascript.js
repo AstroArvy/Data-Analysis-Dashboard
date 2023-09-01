@@ -1,150 +1,55 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-  
-<script src="https://code.highcharts.com/maps/highmaps.js"></script>
-<script src="https://code.highcharts.com/maps/modules/exporting.js"></script>
+all_data=window.all_data;
+console.log(window.all_data[0]);
 
-<script src="https://code.highcharts.com/highcharts.js"></script>
-<script src="https://code.highcharts.com/modules/export-data.js"></script>
-<script src="https://code.highcharts.com/modules/accessibility.js"></script>
-  
-  
-<script src="https://code.highcharts.com/modules/treemap.js"></script>
+// Create an object to store the counts for each state
+const stateCounts = {};
 
-  <title>Static Webpage</title>
-</head>
+// Count the occurrences of each state
+for (const entry of all_data) {
+    const { state } = entry;
+    if (stateCounts[state]) {
+        stateCounts[state]++;
+    } else {
+        stateCounts[state] = 1;
+    }
+}
 
-<body>
-  <header class="navbar">
-    <div class="logo">
-      <img src="logo.png" alt="Logo">
-    </div>
-    <nav class="nav-links">
-      <a href="#"><i class="fas fa-home"></i></a>
-      <a href="#"><i class="fas fa-power-off"></i></a>
-    </nav>
-  </header>
-  
-  <div class="horizontal-panel">
-   <div class="date-container">
-	  <label for="date1">From</label><br>
-      <input type="date" id="date1">
-	  <label for="date2">To</label><br>
-	  <input type="date" id="date2">
-	</div>
-	
-	<div class="dropdowns">
-	  <select name="language" id="language">
-  <option value="javascript">JavaScript</option>
-  <option value="python">Python</option>
-  <option value="c++" disabled>C++</option>
-  <option value="java" selected>State</option>
-</select>
+// Convert the state counts into the desired format (array of arrays)
+const formattedStateCounts = Object.entries(stateCounts).map(([state, count], index) => [state, count]);
 
-<select name="language" id="language">
-  <option value="javascript">JavaScript</option>
-  <option value="python">Python</option>
-  <option value="c++" disabled>C++</option>
-  <option value="java" selected>City</option>
-</select>
+// Sort the array based on state codes if needed
+formattedStateCounts.sort((a, b) => a[0].localeCompare(b[0]));
 
-<select name="language" id="language">
-  <option value="javascript">JavaScript</option>
-  <option value="python">Python</option>
-  <option value="c++" disabled>C++</option>
-  <option value="java" selected>Location</option>
-</select>
+// Output the result
+console.log(formattedStateCounts);
 
-<select name="language" id="language">
-  <option value="javascript">JavaScript</option>
-  <option value="python">Python</option>
-  <option value="c++" disabled>C++</option>
-  <option value="java" selected>Brand</option>
-</select>
-
-<select name="language" id="language">
-  <option value="javascript">JavaScript</option>
-  <option value="python">Python</option>
-  <option value="c++" disabled>C++</option>
-  <option value="java" selected>Product</option>
-</select>
-
-<select name="language" id="language">
-  <option value="javascript">JavaScript</option>
-  <option value="python">Python</option>
-  <option value="c++" disabled>C++</option>
-  <option value="java" selected>Model</option>
-</select>
-</div>
-
-    <button class="go-button">GO</button>
-  </div>
-  
-  <div class="content">
-    <div class="chart-container">
-      <div class="map" id="container">Indian States Map </div>
-      <div id="column-chart"></div>
-	  <div id="bar-chart"></div>
-    </div>
-	<div class="chart-container2">
-		<div id="pie-chart"></div>
-		<div id="hist"></div>
-		<div id="tree"></div>
-	</div>
-  </div>
-
-<script>
 (async () => {
-
     const topology = await fetch(
         'https://code.highcharts.com/mapdata/countries/in/in-all.topo.json'
     ).then(response => response.json());
 
-    // Prepare demo data. The data is joined to map using value of 'hc-key'
-    // property by default. See API docs for 'joinBy' for more info on linking
-    // data and map.
-    const data = [
-        ['in-py', 10], ['in-ld', 11], ['in-wb', 12], ['in-or', 13],
-        ['in-br', 14], ['in-sk', 15], ['in-ct', 16], ['in-tn', 17],
-        ['in-mp', 18], ['in-2984', 19], ['in-ga', 20], ['in-nl', 21],
-        ['in-mn', 22], ['in-ar', 23], ['in-mz', 24], ['in-tr', 25],
-        ['in-3464', 26], ['in-dl', 27], ['in-hr', 28], ['in-ch', 29],
-        ['in-hp', 30], ['in-jk', 31], ['in-kl', 32], ['in-ka', 33],
-        ['in-dn', 34], ['in-mh', 35], ['in-as', 36], ['in-ap', 37],
-        ['in-ml', 38], ['in-pb', 39], ['in-rj', 40], ['in-up', 41],
-        ['in-ut', 42], ['in-jh', 43]
-    ];
-
-    // Create the chart
-    Highcharts.mapChart('container', {
+    const mapContainer = document.getElementById('map-container');
+    const statesDropdown = document.getElementById('states');
+    
+    const data = formattedStateCounts;
+	
+	// Create the initial map
+    const map = Highcharts.mapChart('container', {
         chart: {
             map: topology
         },
-
         title: {
             text: 'StateWise Service Request',
-			align: 'left',
-			style: {
-			fontSize:13
-			}
-        },
-
-        mapNavigation: {
-            enabled: true,
-            buttonOptions: {
-                verticalAlign: 'bottom'
+            align: 'left',
+            style: {
+                fontSize: 13
             }
         },
-
+        // Other map configuration options
+		
         colorAxis: {
             min: 0
         },
-
         series: [{
             data: data,
             name: 'Random data',
@@ -153,17 +58,62 @@
                     color: '#BADA55'
                 }
             },
-            dataLabels: {
-                enabled: false,
+        mapNavigation: {
+            enabled: true,
+            buttonOptions: {
+                verticalAlign: 'bottom'
+            }
+        },
+        dataLabels: {
+            enabled: false,
                 format: '{point.name}'
             }
         }]
     });
 
-})();
-</script>
+	statesDropdown.addEventListener('change', (event) => {
+		const selectedState = event.target.value;
+		console.log(statesDropdown.value);
+		if (statesDropdown.value === 'all-state') {
+			// Show all data on the map
+			updateMapForAllData();
+		} else {
+			// Show data for the selected state
+			const selectedData = data.find(item => item[0] === selectedState)[1];
+			updateMap(selectedState, selectedData);
+		}
+	});
 
-<script>
+    // Function to update the map with selected data
+    function updateMap(selectedState, selectedData) {
+        map.update({
+            series: [{
+                data: [
+                    [selectedState, selectedData]
+                ]
+            }]
+        });
+    }
+	
+	function updateMapForAllData() {
+		map.update({
+            series: [{
+                data: data,
+            }]
+        });
+    }
+    
+}
+	
+)();
+
+
+
+
+    
+
+
+
 Highcharts.chart('column-chart', {
   chart: {
     type: 'column'
@@ -208,9 +158,8 @@ Highcharts.chart('column-chart', {
     }
   ]
 });
-</script>
 
-<script>
+
 
 Highcharts.chart('bar-chart', {
   chart: {
@@ -259,7 +208,7 @@ Highcharts.chart('bar-chart', {
     align: 'right',
     verticalAlign: 'top',
     x: -20,
-    y: 250,
+    y: 280,
     floating: true,
     borderWidth: 1,
     backgroundColor:
@@ -278,9 +227,9 @@ Highcharts.chart('bar-chart', {
   }]
 });
 
-</script>
 
-<script>
+
+
 // Data retrieved from https://netmarketshare.com
 Highcharts.chart('pie-chart', {
   chart: {
@@ -349,10 +298,9 @@ Highcharts.chart('pie-chart', {
     }]
   }]
 });
-</script>
 
 
-<script>
+
 Highcharts.chart('hist', {
   chart: {
     type: 'column'
@@ -410,9 +358,9 @@ Highcharts.chart('hist', {
   }]
 });
 
-</script>
 
-<script>
+
+
 Highcharts.chart('tree', {
   series: [{
     type: 'treemap',
@@ -503,6 +451,3 @@ Highcharts.chart('tree', {
       '{point.value}'
   }
 });
-</script>
-</body>
-</html>
