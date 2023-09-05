@@ -24,10 +24,11 @@ body {
   margin: 0 10px;
 }
 
-/* Additional styling for map and charts goes here */
+/* Additional styling for dropdowns and button */
 
 .horizontal-panel {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   background-color: #f0f0f0;
   padding: 10px;
@@ -37,35 +38,36 @@ body {
 .date-container {
   display: flex;
   align-items: center;
-  margin-right: 200px; /* Add space between date container and dropdowns */
+  margin-right: 10%; /* Add space between date container and dropdowns */
 }
 
 .date-container label {
-  margin-right: 10px; /* Add space between label and input */
+  margin-right: 4%; /* Add space between label and input */
 }
 
 .date-container input {
   padding: 5px;
-  margin-right: 40px;
+  margin-right: 8%;
 }
 
 .dropdowns {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: space-between; /* Spread out dropdowns */
   flex-grow: 1; /* Occupy available space */
-  margin-right: 200px;
+  margin-right: 10%;
 }
 
-.go-button {
+#goButton {
   padding: 10px 20px;
-  background-color: blue;
+  background-color: rgb(29, 107, 208);
   color: white;
   border: none;
   cursor: pointer;
 }
 
-.go-button:hover {
+#goButton:hover {
   background-color: darkblue;
 }
 
