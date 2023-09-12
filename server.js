@@ -7,8 +7,8 @@ const port = 3000; // Replace with your desired port
 // Create a MySQL database connection
 const db = mysql.createConnection({
   host: 'localhost',
-  user: 'root',
-  password: 'Aryan@1998',
+  user: 'username',
+  password: 'password',
   database: 'microtek',
 });
 
